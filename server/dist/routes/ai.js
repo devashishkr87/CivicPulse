@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ai_controller_1 = require("@/controllers/ai.controller");
+const validate_1 = require("@/middleware/validate");
+const router = (0, express_1.Router)();
+router.post('/explain', validate_1.validateAIExplain, ai_controller_1.postAIExplain);
+router.post('/verify', validate_1.validateAIVerify, ai_controller_1.postAIVerify);
+router.post('/chat', validate_1.validateAIChat, ai_controller_1.postAIChat);
+exports.default = router;
