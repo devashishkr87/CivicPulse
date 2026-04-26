@@ -15,7 +15,7 @@ export const getCandidates = async (req: Request, res: Response, next: NextFunct
     }
 
     // Use DB if connected, otherwise fallback to mock
-    let candidates = [];
+    let candidates: (typeof MOCK_CANDIDATES[number])[] = [];
     if (mongoose.connection.readyState === 1) {
       candidates = await CandidateModel.find({ state, constituency }).limit(4);
     }

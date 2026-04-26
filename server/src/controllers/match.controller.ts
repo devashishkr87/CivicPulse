@@ -12,7 +12,7 @@ export const postMatch = async (req: Request, res: Response, next: NextFunction)
     const { state, constituency, priorities } = req.body;
 
     // Use DB if connected, otherwise fallback to mock
-    let candidates = [];
+    let candidates: (typeof MOCK_CANDIDATES[number])[] = [];
     if (mongoose.connection.readyState === 1) {
       candidates = await CandidateModel.find({ state, constituency });
     }
@@ -25,7 +25,7 @@ export const postMatch = async (req: Request, res: Response, next: NextFunction)
 
     // 2. For each candidate, find their positions and manifesto
     const results: CandidateWithScore[] = await Promise.all(
-      candidates.map(async (c: any) => {
+      candidates.map(async (c) => {
         let positions;
         let manifesto;
 
